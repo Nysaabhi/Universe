@@ -797,15 +797,15 @@
          </style>
         </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">Deep</div>
-            <button class="wallet">
-                <i class="fas fa-wallet"></i>
-                Wallet
-            </button>
-        </div>
-    </header>
+<header class="header">
+    <div class="header-content">
+        <a href="https://github.com/Nysaabhi/Universe" class="logo">Deep</a>
+        <button class="wallet">
+            <i class="fas fa-wallet"></i>
+            Wallet
+        </button>
+    </div>
+</header>
 
     <div class="chatbot-container">
         <div class="chat-header">
