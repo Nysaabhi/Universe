@@ -1517,46 +1517,68 @@ return benefits[packageType].map(benefit => `
             });
         }
          
-                // Menu toggle functionality
-                const menuButton = document.getElementById('menuButton');
-        const menuOverlay = document.getElementById('menuOverlay');
-        const menuItems = document.querySelectorAll('.menu-item');
+// Menu elements
+const menuButton = document.getElementById('menuButton');
+const menuOverlay = document.getElementById('menuOverlay');
+const menuItems = document.querySelectorAll('.menu-item');
+const chatMessages = document.getElementById('chatMessages');
 
-        menuButton.addEventListener('click', () => {
-            menuOverlay.style.display = menuOverlay.style.display === 'none' ? 'block' : 'none';
-        });
+// Toggle menu and handle interactions
+function toggleMenu(show) {
+    menuOverlay.style.display = show ? 'block' : 'none';
+    
+    // Optional: Add animation classes
+    if (show) {
+        menuOverlay.classList.add('fade-in');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    } else {
+        menuOverlay.classList.remove('fade-in');
+        document.body.style.overflow = '';
+    }
+}
 
-        // Close menu when clicking outside
-        menuOverlay.addEventListener('click', (e) => {
-            if (e.target === menuOverlay) {
-                menuOverlay.style.display = 'none';
-            }
-        });
+// Handle service selection
+function handleServiceSelection(category) {
+    // Create and append message
+    const message = document.createElement('div');
+    message.className = 'message bot-message';
+    message.innerHTML = `
+        <div class="message-avatar">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="message-content">
+            You've selected ${category} service. Would you like to book an appointment?
+        </div>
+    `;
+    chatMessages.appendChild(message);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
 
-        // Service category click handling
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const category = item.getAttribute('data-category');
-                // Handle category selection (you can add your own logic here)
-                console.log(`Selected category: ${category}`);
-                menuOverlay.style.display = 'none';
-                
-                // Example: Update chat with selected service
-                const chatMessages = document.getElementById('chatMessages');
-                const message = document.createElement('div');
-                message.className = 'message bot-message';
-                message.innerHTML = `
-                    <div class="message-avatar">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="message-content">
-                        You've selected ${category} service. Would you like to book an appointment?
-                    </div>
-                `;
-                chatMessages.appendChild(message);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            });
-        });
+// Event Listeners
+menuButton.addEventListener('click', () => toggleMenu(true));
+
+// Close menu when clicking outside
+menuOverlay.addEventListener('click', (e) => {
+    if (e.target === menuOverlay) {
+        toggleMenu(false);
+    }
+});
+
+// Handle menu item clicks
+menuItems.forEach(item => {
+    item.addEventListener('click', () => {
+        const category = item.getAttribute('data-category');
+        handleServiceSelection(category);
+        toggleMenu(false);
+    });
+});
+
+// Optional: Close menu with Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        toggleMenu(false);
+    }
+});
 
         // Call Functionality
         function initiateCall() {
