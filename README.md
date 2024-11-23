@@ -799,7 +799,7 @@
 <body>
 <header class="header">
     <div class="header-content">
-        <a href="https://github.com/Nysaabhi/Universe" class="logo">Deep</a>
+        <a href="https://nysaabhi.github.io/Universe" class="logo">Deep</a>
         <button class="wallet">
             <i class="fas fa-wallet"></i>
             Wallet
